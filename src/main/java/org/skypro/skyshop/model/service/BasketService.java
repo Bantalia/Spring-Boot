@@ -4,6 +4,7 @@ import org.skypro.skyshop.model.basket.BasketItem;
 import org.skypro.skyshop.model.basket.ProductBasket;
 import org.skypro.skyshop.model.basket.UserBasket;
 import org.skypro.skyshop.model.product.Product;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -15,20 +16,19 @@ public class BasketService {
     private final ProductBasket basket;
     private final StorageService storageService;
 
+    @Autowired
     public BasketService(ProductBasket basket, StorageService storageService) {
         this.basket = basket;
         this.storageService = storageService;
     }
 
     public void addProduct(UUID id) {
-        Optional<Product> productOptional = storageService.getProductById(id);
-
-        if (productOptional.isEmpty()) {
-            throw new IllegalArgumentException("Product with id " + id + " not found");
-        }
+        storageService.getProductById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Product with id " + id + " not found"));
 
         basket.addProduct(id);
-    }
+        }
+
 
     public UserBasket getUserBasket() {
         Map<UUID, Integer> productsInBasket = basket.getProducts();

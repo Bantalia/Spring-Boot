@@ -14,7 +14,8 @@ public class ProductBasket {
     private final Map<UUID, Integer> products = new HashMap<>();
 
     public void addProduct(UUID id) {
-        products.merge(id, 1, Integer::sum);
+        products.computeIfAbsent(id, k -> 0);
+        products.put(id, products.get(id) + 1);
     }
 
     public Map<UUID, Integer> getProducts() {
