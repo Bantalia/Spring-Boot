@@ -11,7 +11,7 @@ public abstract class Product implements Searchable {
 
     public Product(UUID id,String name) {
         if (name == null || name.isBlank()) { // проверка, что название не является null или пустой строкой
-            throw new IllegalArgumentException("Название продукта не может быть пустым.");
+            throw new NoSuchProductException("Product with id " + id + " not found");
         }
 
         this.name = name;
