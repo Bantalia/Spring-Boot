@@ -8,7 +8,7 @@ public class SimpleProduct extends Product {
     public SimpleProduct(UUID id, String name, int price) {
         super(id, name); // вызывает конструктор родительского класса
         if (price <= 0) { // Цена должна быть строго больше нуля
-            throw new IllegalArgumentException("Цена продукта должна быть положительной величиной.");
+            throw new NoSuchProductException("Product with id " + id + " not found");
         }
 
         this.price = price;
