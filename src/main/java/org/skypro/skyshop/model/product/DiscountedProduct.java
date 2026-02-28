@@ -10,7 +10,7 @@ public class DiscountedProduct extends Product {
         super(id, name);
 
         if (discountPercent < 0 || discountPercent > 100) { // скидка должна быть от 0% до 100%
-            throw new IllegalArgumentException("Процент скидки должен находиться в пределах от 0 до 100 включительно.");
+            throw new NoSuchProductException("Product with id " + id + " not found");
         }
         this.discountPercent = discountPercent;
         this.basePrice = basePrice;
